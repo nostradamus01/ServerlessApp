@@ -41,7 +41,8 @@ const handler = async (event, context) => {
         }
     } else {
         return {
-            statusCode: 404
+            statusCode: 200,
+            body: JSON.stringify([event, context, allData])
         }
     }
 }

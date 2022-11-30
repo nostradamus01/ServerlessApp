@@ -22,7 +22,7 @@ export default {
                     'Content-Type': 'application/json'
                 }
             });
-            return await result.json();
+            return await result.json().allUsers;
         }
     }
 }

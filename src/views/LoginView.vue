@@ -13,7 +13,7 @@
 export default {
     computed: {
         async allUsers() {
-            const result = await fetch('/api', {
+            const result = await fetch('/.netlify/functions/api', {
                 method: 'POST',
                 body: JSON.stringify({
                     action: 'getAllUsers'

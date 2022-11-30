@@ -2,5 +2,5 @@
     functions = "functions"
 [[redirects]]
     from = "/*"
-    to = "/.netlify/functions/:splat"
+    to = "/index.html"
     status = 200

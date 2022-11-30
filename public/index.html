@@ -7,19 +7,27 @@
     <title>Document</title>
 </head>
 <body>
+    <button id="getAllUsers">getAllUsers</button>
+    <button id="getAllData">getAllData</button>
     <script>
-        (async () => {
+        const sendRequest = async (actionName) => {
             const result = await fetch('/api', {
                 method: 'POST',
                 body: JSON.stringify({
-                    action: 'getAllUsers'
+                    action: actionName
                 }),
                 headers: {
                     'Content-Type': 'application/json'
                 }
             });
             console.log(await result.json());
-        })();
+        };
+
+        const getAllDataBtn = document.querySelector('#getAllData');
+        const getAllUsersBtn = document.querySelector('#getAllUsers');
+
+        getAllDataBtn.addEventListener('click', sendRequest.bind(null, 'getAllData'));
+        getAllUsersBtn.addEventListener('click', sendRequest.bind(null, 'getAllUsers'));
     </script>
 </body>
 </html>

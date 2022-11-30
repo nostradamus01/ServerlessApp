@@ -34,26 +34,34 @@ const getAllUsers = async () => {
     }
 };
 
-const handler = async (event, context) => {
-    let response = null;
+module.exports.handler = async (event, context) => {
+    let data = null;
 
     const body = JSON.parse(event.body);
-    
+
     switch (body.action) {
         case 'getAllUsers': 
-            response = await getAllUsers();
+            data = await getAllUsers();
             break;
         case 'getAllData':
-            response = await getAllData();
+            data = await getAllData();
             break;
     }
 
-    return response ? {
-        statusCode: 200,
-        body: JSON.stringify([event, context, response])
-    } : {
-        statusCode: 404
+    let response = null;
+    if (data) {
+        response = {
+            statusCode: 200,
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        }
+    } else {
+        response = {
+            statusCode: 404
+        }
     }
-}
 
-module.exports = { handler }
+    return response;
+}

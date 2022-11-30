@@ -20,13 +20,39 @@ const getAllData = async () => {
     }
 };
 
+const getAllUsers = async () => {
+    try {
+        await client.connect();
+        const users = await client.db('fifa22cup').collection('users').find().toArray();
+        return {
+            allUsers: users
+        }
+    } catch (e) {
+        return e.toString();
+    } finally {
+        client.close();
+    }
+};
+
 const handler = async (event, context) => {
-    console.log(event);
-    console.log(context);
-    const allData = await getAllData();
-    return {
+    let response = null;
+
+    const body = JSON.parse(event.body);
+    
+    switch (body.action) {
+        case 'getAllUsers': 
+            response = await getAllUsers();
+            break;
+        case 'getAllData':
+            response = await getAllData();
+            break;
+    }
+
+    return response ? {
         statusCode: 200,
-        body: JSON.stringify([event, context, allData])
+        body: JSON.stringify([event, context, response])
+    } : {
+        statusCode: 404
     }
 }
 

@@ -11,7 +11,9 @@
         (async () => {
             const result = await fetch('/api', {
                 method: 'POST',
-                body: JSON.stringify(['hello', 'world']),
+                body: JSON.stringify({
+                    action: 'getAllUsers'
+                }),
                 headers: {
                     'Content-Type': 'application/json'
                 }

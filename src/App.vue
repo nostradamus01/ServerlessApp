@@ -19,7 +19,7 @@ export default {
     this.isLoading = true;
     const result = await fetch('/.netlify/functions/api', {
       method: 'POST',
-      mode: 'no-cors',
+      // mode: 'no-cors',
       body: JSON.stringify({
         action: 'getAllUsers'
       }),

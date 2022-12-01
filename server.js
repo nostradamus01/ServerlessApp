@@ -3,6 +3,7 @@ const { MongoClient, ServerApiVersion } = require('mongodb');
 const express = require('express');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
+const cors = require('cors');
 
 const uri = process.env.MongoURL;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
@@ -12,6 +13,7 @@ const defautlPort = 3001;
 const app = express();
 
 app.use(bodyParser.json());
+app.use(cors());
 
 const connect = async (callback) => {
     try {
@@ -76,7 +78,6 @@ app.post('/getAllUsers', async (req, res) => {
             users.forEach(user => {
                 delete user.pinCode;
             });
-            console.log(users);
             res.send({users: users});
         } catch (e) {
             console.error(e);

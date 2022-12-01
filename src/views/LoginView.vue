@@ -3,7 +3,7 @@
         <form class="login-form">
             <select class='custom-select' name="username" id="username">
                 <option disabled selected hidden>Ընտրիր քեզ</option>
-                <!-- <option v-for="user in allUsers" :value="user.username">{{ user.name_tr }}</option> -->
+                <option v-for="user in $store.state.allUsers" :value="user.username">{{ user.name_tr }}</option>
             </select>
             <div class="pin">
                 <input class="pin-input" type="number" name="pinCode" min="0" max="9999">

@@ -4,7 +4,7 @@ import Loader from './components/Loader.vue'
 </script>
 
 <template>
-  <Loader v-if="isLoading" />
+  <Loader v-if="$store.state.isLoading"/>
   <RouterView />
 </template>
 
@@ -15,11 +15,14 @@ export default {
       isLoading: false
     }
   },
+  methods: {
+
+  },
   async mounted() {
-    this.isLoading = true;
-    const result = await fetch('/.netlify/functions/api', {
+    this.$store.state.isLoading = true;
+    // Must be: /.netlify/functions/api
+    const result = await fetch('http://localhost:3001/getAllUsers', {
       method: 'POST',
-      // mode: 'no-cors',
       body: JSON.stringify({
         action: 'getAllUsers'
       }),
@@ -27,8 +30,10 @@ export default {
         'Content-Type': 'application/json'
       }
     });
-    const allUsers = await result.json().users;
-    this.isLoading = false;
+    const allUsers = (await result.json()).users;
+    console.log(allUsers);
+    this.$store.state.allUsers = allUsers;
+    this.$store.state.isLoading = false;
   }
 }
 </script>
